@@ -13,9 +13,7 @@ public class MultiThreadServer {
         while (true) {
             Socket clientSocket = serverSocket.accept();
             int clientOrder = clientCount.getAndIncrement();
-            System.out.println("Nouveau client connecté: "
-                + clientSocket.getRemoteSocketAddress()
-                + " | Ordre: " + clientOrder);
+            System.out.println("Nouveau client connecté: "+ clientSocket.getRemoteSocketAddress() + " | Ordre: " + clientOrder);
 
             new Thread(new ClientHandler(clientSocket, clientOrder)).start();
         }
@@ -33,7 +31,7 @@ class ClientHandler implements Runnable {
 
     public void run() {
         try {
-            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
+            PrintWriter out = new PrintWriter(clientSocket.getOutputStream(),true);
             out.println("Votre ordre de connexion est : " + clientOrder);
             clientSocket.close();
         } catch (IOException e) {
